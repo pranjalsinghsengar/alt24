@@ -7,7 +7,7 @@ import "../../App.css";
 import TextCompo from "./TextCompo";
 import Video from "../../components/Global/Video";
 
-const Home = ({ timeline }) => {
+const Home = ({ timeline, loaderFinished }) => {
   const homeRef = useRef(null);
   const OrangeArea = useRef(null);
   const claping = useRef(null);
@@ -21,7 +21,8 @@ const Home = ({ timeline }) => {
   const SMleftRef = useRef(null);
   const newsRef = useRef(null);
   const card1Ref = useRef(null);
-  const card2Ref = useRef(null);
+  const PralexRef = useRef(null);
+  const one = useRef(null);
 
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -33,6 +34,20 @@ const Home = ({ timeline }) => {
     () => {
       let t1 = gsap.timeline();
       let t2 = gsap.timeline();
+
+      t1.to(".one span", {
+        opacity: 1,
+        stagger: 5,
+        duration: 2,
+        marginBottom: 50,
+        scrollTrigger: {
+          trigger: one.current,
+          start: "50% 80%",
+          end: "30% top",
+          scrub: 2,
+          // markers: true,
+        },
+      });
 
       t1.to(orangeTextHEadRef.current, {
         yPercent: -100,
@@ -82,14 +97,14 @@ const Home = ({ timeline }) => {
         // yPercent: -150,
         // background: "#fffff",
 
-        scale: 600,
+        scale: 700,
         yPercent: -15000,
         scrollTrigger: {
           trigger: OrangeArea.current,
           start: "bottom bottom",
           end: "bottom center",
           // pin: true,
-          scrub: 1.8,
+          scrub: true,
 
           //     // pin: OrangeArea.current,
           // markers: {
@@ -157,10 +172,10 @@ const Home = ({ timeline }) => {
           pinSpacing: true,
           scrub: true,
           //     // pin: OrangeArea.current,
-          markers: {
-            startColor: "blue",
-            endColor: "blue",
-          },
+          // markers: {
+          //   startColor: "blue",
+          //   endColor: "blue",
+          // },
           //     // markers: true,
         },
       });
@@ -174,9 +189,26 @@ const Home = ({ timeline }) => {
           start: "top top",
           end: "bottom top",
           scrub: true,
-          markers: {
-            startColor: "green",
-          },
+
+          // markers: {
+          //   startColor: "green",
+          // },
+        },
+      });
+      t1.to(PralexRef.current, {
+        yPercent: -5,
+        // stagger: 0.5,
+
+        scrollTrigger: {
+          trigger: OrangeArea.current,
+          start: "bottom 95%",
+          end: "bottom 70%",
+          scrub: true,
+
+          // markers: {
+          //   startColor: "white",
+          //   endColor: "white",
+          // },
         },
       });
     },
@@ -215,6 +247,26 @@ const Home = ({ timeline }) => {
   //   { scope: ShowMeMoreRef.current }
   // );
 
+  // let tl = gsap.timeline();
+
+  // tl.to(".VideoText", {
+  //   opacity: 100,
+  //   duration: 1.15,
+  //   ease: "power1.out",
+  //   stagger: 0.5,
+  //   // yPercent: -,
+  //   margin: 0,
+  //   z:99,
+
+  //   scrollTrigger: {
+  //     trigger: videoRef.current,
+  //     start: "bottom 80%",
+  //     end: "bottom top",
+  //     scrub: true,
+  //     markers: true,
+  //   },
+  // });
+
   useEffect(() => {
     timeline && timeline.add(Showhome(homeRef));
   }, [timeline]);
@@ -225,15 +277,52 @@ const Home = ({ timeline }) => {
   return (
     <div
       ref={homeRef}
-      className='w-full h-full z-30 text-black text-9xl  absolute top-0'
+      style={{ display: "hidden" }}
+      className={`w-full h-full z-30 text-black text-9xl  absolute top-0`}
     >
-      <div className=' px-8 my-[60vh] text-[15vh] font-bold '>
-        A CREATIVE <br />
-        AGENCY LIVING AT THE <br /> INTERSECTION OF <br /> BIG IDEAS <br />{" "}
-        INNOVATION & HUMAN EXPERIENCES
+      {/* <div className='relative' ref={videoRef}>
+        <video
+          ref={videoRef}
+          src='pexels-alena-darmel-6950902.mp4'
+          loop
+          autoPlay
+          muted
+          className='w-full h-full object-cover fixed -z-10 '
+        ></video>
+      </div> */}
+
+      <div
+        className='one px-8 mt-[70vh] mb-52 text-[15vh] z-10  text-white font-black'
+        ref={one}
+      >
+        {" "}
+        <p>ALT24</p>
+        <p>
+          {" "}
+          A CREATIVE AGENCY
+          <br />
+        </p>
+        <span>
+          {" "}
+          LIVING AT THE INTERSECTION <br />
+        </span>
+        <span>
+          {" "}
+          OF BIG IDEAS
+          <br />
+        </span>
+        <span>
+          {" "}
+          INNOVATION & HUMAN
+          <br />
+        </span>
+        <span>
+          {" "}
+          EXPERIENCES <br />
+        </span>
       </div>
 
-      <div ref={OrangeArea} className='w-full h-full bg-orange-500  relative'>
+      <div ref={OrangeArea} className='w-full h-full bg-[#ffdbc2]  relative'>
         <div
           ref={orangeTextHEadRef}
           className='uppercase font-semibold text-6xl w-10/12   text-white flex items-center'
@@ -294,28 +383,42 @@ const Home = ({ timeline }) => {
 
         {/* Card Video */}
 
-        <div>
-          <div className='flex gap-10 mt-52 '>
-            <div
-              ref={imageContainerRef}
-              className='w-[35rem] h-[20rem] bg-white rounded-2xl overflow-hidden '
-            >
-              <img
-                src='https://images.pexels.com/photos/1774927/pexels-photo-1774927.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                alt=''
-                ref={imageRef}
-                className='w-[100%]'
-              />
-            </div>
-            <div className='w-[45rem] h-[20rem] bg-white rounded-2xl '></div>
+        <div className='grid grid-cols-4 grid-rows-12 gap-10 my-52 w-11/12  '>
+          <div
+            ref={imageContainerRef}
+            className=' bg-white relative rounded-2xl h-[30rem] overflow-hidden row-span-3'
+          >
+            <video
+              ref={PralexRef}
+              src='pexels-alena-darmel-6950902.mp4'
+              type='video/mp4'
+              loop
+              autoPlay
+              muted
+              className='object-cover h-full w-full   '
+            ></video>
           </div>
-          <div className='flex gap-10 mt-10  '>
-            <div className='w-[35rem] h-[20rem] bg-white rounded-2xl '></div>
-            <div className='w-[45rem] h-[20rem] bg-white rounded-2xl '></div>
+          <div className='col-start-2 col-span-3 row-span-3 h-[30rem] bg-red-400 rounded-2xl  overflow-hidden'>
+            <video
+              ref={PralexRef}
+              src='video(1080p).mp4'
+              type='video/mp4'
+              loop
+              autoPlay
+              muted
+              className='object-cover h-full w-full   '
+            ></video>
           </div>
-          <div className='flex gap-10 mt-10'>
-            <div className='w-[35rem] h-[20rem] bg-white rounded-2xl '></div>
-            <div className='w-[45rem] h-[20rem] bg-white rounded-2xl '></div>
+
+          <div className=' bg-white rounded-2xl col-span-2 row-span-6 row-start-4 '></div>
+          <div className=' bg-white rounded-2xl col-span-2 row-span-3 col-start-3 row-start-4 '></div>
+
+          <div className=' bg-white rounded-2xl col-span-2 row-span-3 col-start-3 row-start-7 '></div>
+          <div className='bg-white rounded-2xl col-span-3 row-span-3 row-start-10'>
+            8
+          </div>
+          <div className='bg-white rounded-2xl row-span-3 col-start-4 row-start-10'>
+            9
           </div>
         </div>
 
@@ -339,7 +442,7 @@ const Home = ({ timeline }) => {
       </div>
       {/* news */}
       <div className='bg-white h-full w-full ' ref={newsRef}>
-        <p className='text-[15vh] h-full font-extrabold inset-0 flex pt-20'>
+        <p className='text-[15vh] h-full font-extrabold inset-0 flex pt-20 pl-10'>
           <span className='text-2xl font-medium mt-5 mr-2 '>News</span>NEWS AND
           VIEWS <br />
           FROM THE FOLD
@@ -424,6 +527,9 @@ const Home = ({ timeline }) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className='text-white font-black text-[6vh] sticky top-0 z-50 invisible'>
+        ALT24
       </div>
     </div>
   );

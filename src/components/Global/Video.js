@@ -1,13 +1,14 @@
 import React from "react";
 
-const Video = () => {
+const Video = ({ videoRef }) => {
   return (
     <video
+      ref={videoRef}
       src='pexels-alena-darmel-6950902.mp4'
       loop
       autoPlay
       muted
-      className='w-full h-full object-cover absolute top-0 left-0 right-0 bottom-0 '
+      className='w-full h-full -z-20 object-cover fixed '
     ></video>
   );
 };

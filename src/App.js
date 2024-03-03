@@ -11,6 +11,7 @@ function App() {
   const [loaderFinished, setloaderFinished] = useState(false);
   const [timeline, setTimeline] = useState(null);
 
+  const videoRef = useRef(null);
   useLayoutEffect(() => {
     const context = gsap.context(() => {
       const tl = gsap.timeline({
@@ -22,14 +23,19 @@ function App() {
 
       setTimeline(tl);
     });
+
     return () => context.revert();
   }, []);
 
+  // setTimeout(() => {
+  //   setloaderFinished(true);
+  // }, 5000);
+
   return (
     <div className={`App relative `}>
-      <Video />
+      <Video videoRef={videoRef} />
       {loaderFinished ? (
-        <Home timeline={timeline} />
+        <Home timeline={timeline} videoRef={videoRef} />
       ) : (
         <Loader timeline={timeline} />
       )}

@@ -30,3 +30,7 @@
 top: 0;
 padding-top: calc( var(--cardTopPadding)); ;
 } */
+
+.one span{
+  opacity: 0;
+}
